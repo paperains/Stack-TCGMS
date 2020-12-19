@@ -12,3 +12,7 @@ This is the record of the script's changes for easy access and review.
 - Games PHP file cleanup
   - Removed table rows for games set up per set
   - Added instructions how to add games both on case line and table rows
+- Changed the SQL column owner to name from the add affiliates page.
+- Changed the function Value to Password
+  - This will now check if the password that were typed twice matches.
+- Added absolute file path to the list of settings to be used for file uploads function.
