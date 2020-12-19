@@ -9,7 +9,7 @@ if ($stat == "added") {
     if (!isset($_POST['submit']) || $_SERVER['REQUEST_METHOD'] != "POST") { exit("<p>You did not press the submit button; this page should not be accessed directly.</p>"); }
     else {
         $check->Value();
-        $name = $sanitize->for_db($_POST['owner']);
+        $name = $sanitize->for_db($_POST['name']);
         $email = $sanitize->for_db($_POST['email']);
         $tcg = $sanitize->for_db($_POST['subject']);
         $url = $sanitize->for_db($_POST['url']);
@@ -18,10 +18,10 @@ if ($stat == "added") {
         $img_desc = $uploads->reArrayFiles($img);
         $uploads->folderPath('images','aff');
         
-        $insert = $database->query("INSERT INTO `tcg_affiliates` (`owner`, `email`, `subject`, `url`, `status`) VALUES ('$name', '$email', '$tcg', '$url', '$status')");
+        $insert = $database->query("INSERT INTO `tcg_affiliates` (`name`, `email`, `subject`, `url`, `status`) VALUES ('$name', '$email', '$tcg', '$url', '$status')");
         
         if ($insert == TRUE) {
-            $activity = '<span class="fas fa-globe" aria-hidden="true"></span> <a href="'.$url.'" target="_blank">'.$tcg.' TCG</a> has been added as Shizen\'s new affiliate.';
+            $activity = '<span class="fas fa-globe" aria-hidden="true"></span> <a href="'.$url.'" target="_blank">'.$tcg.' TCG</a> has been added as '.$tcgname.'\'s new affiliate.';
             $date = date("Y-m-d", strtotime("now"));
             $database->query("INSERT INTO `tcg_activities` (`name`,`activity`,`date`) VALUES ('$name','$activity','$date')");
             echo '<h1>Affiliates <span class="fas fa-angle-right" aria-hidden="true"></span> Success</h1>';
@@ -41,7 +41,7 @@ if ($stat == "added") {
     <table width="100%" cellspacing="3">
     <tr>
         <td class="headSub" width="15%">Owner:</td>
-        <td valign="middle" width="35%"><input type="text" name="owner" placeholder="Jane Doe" style="width:90%;" /></td>
+        <td valign="middle" width="35%"><input type="text" name="name" placeholder="Jane Doe" style="width:90%;" /></td>
         <td class="headSub" width="15%">Email:</td>
         <td valign="middle" width="35%"><input type="text" name="email" placeholder="username@domain.tld" style="width:90%;" /></td>
     </tr>
