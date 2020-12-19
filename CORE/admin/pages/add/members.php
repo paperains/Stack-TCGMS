@@ -5,7 +5,7 @@
 if ($stat == "added") {
     if (!isset($_POST['submit']) || $_SERVER['REQUEST_METHOD'] != "POST") { exit("<p>You did not press the submit button; this page should not be accessed directly.</p>"); }
     else {
-        $check->Value();
+        $check->Password();
         if (!preg_match("/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,6})$/",strtolower($_POST['email']))) { exit("<h1>Error</h1>\nThat e-mail address is not valid, please use another."); }
 
         $name = $sanitize->for_db($_POST['name']);
