@@ -8,7 +8,7 @@ $blog_postnumber = 1;
 if(!isset($_GET['page'])) { $page = 1; }
 else { $page = (int)$_GET['page']; }
 $from = (($page * $blog_postnumber) - $blog_postnumber);
-$sql = $database->query("SELECT * FROM `tcg_blog` ORDER BY `id` DESC LIMIT $from, $blog_postnumber");
+$sql = $database->query("SELECT * FROM `tcg_blog` WHERE `status`='Published' ORDER BY `id` DESC LIMIT $from, $blog_postnumber");
 
 if (empty($blog_id)) {
     while($row = mysqli_fetch_array($sql)) {
@@ -233,7 +233,7 @@ else {
     else {
         if (!isset($_GET['id']) || !is_numeric($_GET['id'])) { die("Invalid ID specified."); }
         $id = (int)$_GET['id'];
-        $sql = $database->query("SELECT * FROM `tcg_blog` WHERE `id`='$id' LIMIT 1") or print ("Can't select entry from table zen_blog.<br />" . $sql1 . "<br />" . mysqli_connect_error());
+        $sql = $database->query("SELECT * FROM `tcg_blog` WHERE `id`='$id' AND `status`='Published' LIMIT 1") or print ("Can't select entry from table tcg_blog.<br />" . $sql1 . "<br />" . mysqli_connect_error());
         while($row = mysqli_fetch_array($sql)) {
             $mon = date("M", strtotime($row['timestamp']));
             $day = date("d", strtotime($row['timestamp']));
