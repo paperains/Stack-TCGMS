@@ -25,6 +25,9 @@ else {
     <tr><td class="headSub">TCG URL:</td>
         <td valign="middle"><input type="text" name="'.$settings->getName( 'tcg_url' ).'" value="'.$settings->getValue( 'tcg_url' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'tcg_url' ).'</i></td></tr>
     
+    <tr><td class="headSub">Absolute Path:</td>
+        <td valign="middle"><input type="text" name="'.$settings->getName( 'file_path_absolute' ).'" value="'.$settings->getValue( 'file_path_absolute' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'file_path_absolute' ).'</i></td></tr>
+    
     <tr><td class="headSub">Layout Header:</td>
         <td valign="middle"><input type="text" name="'.$settings->getName( 'file_path_header' ).'" value="'.$settings->getValue( 'file_path_header' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'file_path_header' ).'</i></td></tr>
     
@@ -41,20 +44,20 @@ else {
         <td valign="middle"><input type="text" name="'.$settings->getName( 'cards_file_type' ).'" value="'.$settings->getValue( 'cards_file_type' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_file_type' ).'</i></td></tr>
 
     <tr><td class="headSub">Card Template:</td>
-        <td valign="middle"><input type="text" name="'.$settings->getName( 'cards_size_height' ).'" value="'.$settings->getValue( 'cards_size_height' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_size_height' ).'</i>
-            <input type="text" name="'.$settings->getName( 'cards_size_width' ).'" value="'.$settings->getValue( 'cards_size_width' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_size_width' ).'</i><br /></td></tr>
+        <td valign="middle"><input type="text" name="'.$settings->getName( 'cards_size_height' ).'" value="'.$settings->getValue( 'cards_size_height' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_size_height' ).'</i><br />
+            <input type="text" name="'.$settings->getName( 'cards_size_width' ).'" value="'.$settings->getValue( 'cards_size_width' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_size_width' ).'</i></td></tr>
     
     <tr><td class="headSub">Starter Pack:</td>
-        <td valign="middle"><input type="text" name="'.$settings->getName( 'cards_start_choice' ).'" value="'.$settings->getValue( 'cards_start_choice' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_start_choice' ).'</i>
-            <input type="text" name="'.$settings->getName( 'cards_start_reg' ).'" value="'.$settings->getValue( 'cards_start_reg' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_start_reg' ).'</i><br /></td></tr>
+        <td valign="middle"><input type="text" name="'.$settings->getName( 'cards_start_choice' ).'" value="'.$settings->getValue( 'cards_start_choice' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_start_choice' ).'</i><br />
+            <input type="text" name="'.$settings->getName( 'cards_start_reg' ).'" value="'.$settings->getValue( 'cards_start_reg' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_start_reg' ).'</i></td></tr>
     
     <tr><td class="headSub">Mastery Rewards:</td>
-        <td valign="middle"><input type="text" name="'.$settings->getName( 'cards_master_choice' ).'" value="'.$settings->getValue( 'cards_master_choice' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_master_choice' ).'</i>
-            <input type="text" name="'.$settings->getName( 'cards_master_reg' ).'" value="'.$settings->getValue( 'cards_master_reg' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_master_reg' ).'</i><br /></td></tr>
+        <td valign="middle"><input type="text" name="'.$settings->getName( 'cards_master_choice' ).'" value="'.$settings->getValue( 'cards_master_choice' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_master_choice' ).'</i><br />
+            <input type="text" name="'.$settings->getName( 'cards_master_reg' ).'" value="'.$settings->getValue( 'cards_master_reg' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_master_reg' ).'</i></td></tr>
     
     <tr><td class="headSub">Level Up Rewards:</td>
-        <td valign="middle"><input type="text" name="'.$settings->getName( 'cards_level_choice' ).'" value="'.$settings->getValue( 'cards_level_choice' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_level_choice' ).'</i>
-            <input type="text" name="'.$settings->getName( 'cards_level_reg' ).'" value="'.$settings->getValue( 'cards_level_reg' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_level_reg' ).'</i><br /></td></tr>
+        <td valign="middle"><input type="text" name="'.$settings->getName( 'cards_level_choice' ).'" value="'.$settings->getValue( 'cards_level_choice' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_level_choice' ).'</i><br />
+            <input type="text" name="'.$settings->getName( 'cards_level_reg' ).'" value="'.$settings->getValue( 'cards_level_reg' ).'" style="width:30%;" required /> <i>'.$settings->getDesc( 'cards_level_reg' ).'</i></td></tr>
     
     <tr><td valign="middle" colspan="3" align="center"><input type="submit" class="btn-success" value="Edit"></td></tr>
     
