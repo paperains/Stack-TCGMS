@@ -73,10 +73,9 @@ $player = $row['name'];
 
             <!-- OPTIONAL -->
             <div class="pull-right">
-                <a href=""><span class="fab fa-facebook-f" aria-hidden="true"></span></a>
-                <a href=""><span class="fab fa-twitter" aria-hidden="true"></span></a>
-                <a href=""><span class="fab fa-instagram" aria-hidden="true"></span></a>
-                <a href=""><span class="fab fa-pinterest" aria-hidden="true"></span></a>
+                <a href="<?php echo $tcgdiscord; ?>" target="_blank"><span class="fab fa-discord" aria-hidden="true"></span></a>
+                <a href="<?php echo $tcgtwitter; ?>" target="_blank"><span class="fab fa-twitter" aria-hidden="true"></span></a>
+                <a href="mailto:<?php echo $tcgemail; ?>"><span class="fas fa-envelope" aria-hidden="true"></span></a>
             </div>
         </div><!-- /#menu -->
     <!-- END HEADERS -->
