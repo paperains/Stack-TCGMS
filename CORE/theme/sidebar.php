@@ -27,20 +27,21 @@ while($new=mysqli_fetch_assoc($sql)) {
 <?php if (!empty($login)) { ?>
 <h2 class="side-title">Member Panel</h2>
 <div class="post-game">
-	<a href="/account.php">Account</a>
-	<a href="/shoppe.php">Shoppe</a>
-	<a href="/rewards.php?name=<?php echo $player; ?>">Rewards (<?php $count->numRewards(); ?>)</a>
-	<a href="/messages.php?id=<?php echo $player; ?>&page=inbox">Messages (<?php $count->numMail(); ?>)</a>
-	<a href="/account.php?do=logout">Logout</a>
+    <a href="/account.php">Account</a>
+    <a href="/shoppe.php">Shoppe</a>
+    <a href="/rewards.php?name=<?php echo $player; ?>">Rewards (<?php $count->numRewards(); ?>)</a>
+    <a href="/messages.php?id=<?php echo $player; ?>&page=inbox">Messages (<?php $count->numMail(); ?>)</a>
+    <a href="/account.php?do=logout">Logout</a>
 </div>
 <?php } else { ?>
 <h2 class="side-title">Member Login</h2>
 <p align="center">Kindly login your account in order to access the entire TCG.</p>
 <form method="post" action="account.php?do=login&action=loggedin" style="padding-bottom:1px;">
-	<input type="text" name="username" placeholder="username@domain.tld" style="width:93%" /><br />
-	<input type="password" name="password" placeholder="********" style="width:93%" /><br />
-	<input type="submit" name="submit" value="Login" class="btn-success" />
-	<input type="button" onClick="window.location.href='members.php?page=join';" value="Register" class="btn-info" />
+    <input type="text" name="username" placeholder="username@domain.tld" style="width:93%" /><br />
+    <input type="password" name="password" placeholder="********" style="width:93%" /><br />
+    <input type="submit" name="submit" value="Login" class="btn-success" />
+    <?php if ( $settings->getValue( 'tcg_registration' ) == "0" ) { }
+    else { echo '<input type="button" onClick="window.location.href=\'members.php?page=join\';" value="Register" class="btn-info" />'; } ?>
 </form>
 <?php } ?>
 
