@@ -8,6 +8,7 @@ date_default_timezone_set('Asia/Manila');
 
 $database = new Database;
 $sanitize = new Sanitize;
+$settings = new Settings;
 
 $login = isset($_SESSION['USR_LOGIN']) ? $_SESSION['USR_LOGIN'] : null;
 $row = $database->get_assoc("SELECT * FROM `user_list` WHERE `email`='$login'");
@@ -56,7 +57,7 @@ $player = $row['name'];
 
     <!-- BEGIN HEADERS -->
         <div id="logo">
-            <a href="<?php echo $tcgurl; ?>" alt="Your Site Title">YOUR SITE TITLE</a>
+            <a href="<?php echo $tcgurl; ?>" alt="<?php echo $tcgname; ?>"><?php echo $tcgname; ?></a>
         </div><!-- /#logo -->
 
         <div id="menu" class="navbar-fixed-top">
@@ -64,7 +65,8 @@ $player = $row['name'];
                 <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fas fa-bars"></i></a>
                 <a href="/index.php">home</a>
                 <a href="/about.php">about</a>
-                <a href="/members.php?page=join">join us</a>
+                <?php if ( $settings->getValue( 'tcg_registration' ) == "0" ) {}
+                else { echo '<a href="/members.php?page=join">join us</a>'; } ?>
                 <a href="/cards.php">cards</a>
                 <a href="/members.php">members</a>
                 <a href="/games.php">games</a>
