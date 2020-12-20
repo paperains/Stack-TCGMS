@@ -29,7 +29,18 @@ else {
         <td valign="middle"><input type="text" name="'.$settings->getName( 'tcg_discord' ).'" value="'.$settings->getValue( 'tcg_discord' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'tcg_discord' ).'</i></td></tr>
     
     <tr><td class="headSub">TCG Twitter:</td>
-        <td valign="middle"><input type="text" name="'.$settings->getName( 'tcg_twitter' ).'" value="'.$settings->getValue( 'tcg_twiter' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'tcg_twitter' ).'</i></td></tr>
+        <td valign="middle"><input type="text" name="'.$settings->getName( 'tcg_twitter' ).'" value="'.$settings->getValue( 'tcg_twitter' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'tcg_twitter' ).'</i></td></tr>
+    
+    <tr><td class="headSub">Registration:</td>
+        <td valign="middle">';
+        if ( $settings->getValue( 'tcg_registration' ) == "1") {
+            echo '<input type="radio" name="'.$settings->getName( 'tcg_registration' ).'" value="'.$settings->getValue( 'tcg_registration' ).'" checked /> Open ';
+            echo '<input type="radio" name="'.$settings->getName( 'tcg_registration' ).'" value="0" /> Close ';
+        } else {
+            echo '<input type="radio" name="'.$settings->getName( 'tcg_registration' ).'" value="'.$settings->getValue( 'tcg_registration' ).'" /> Open ';
+            echo '<input type="radio" name="'.$settings->getName( 'tcg_registration' ).'" value="No" checked /> Close ';
+        }
+        echo '<i>'.$settings->getDesc( 'tcg_registration' ).'</i></td></tr>
     
     <tr><td class="headSub">Absolute Path:</td>
         <td valign="middle"><input type="text" name="'.$settings->getName( 'file_path_absolute' ).'" value="'.$settings->getValue( 'file_path_absolute' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'file_path_absolute' ).'</i></td></tr>
