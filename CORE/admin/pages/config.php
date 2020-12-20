@@ -25,6 +25,12 @@ else {
     <tr><td class="headSub">TCG URL:</td>
         <td valign="middle"><input type="text" name="'.$settings->getName( 'tcg_url' ).'" value="'.$settings->getValue( 'tcg_url' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'tcg_url' ).'</i></td></tr>
     
+    <tr><td class="headSub">TCG Discord:</td>
+        <td valign="middle"><input type="text" name="'.$settings->getName( 'tcg_discord' ).'" value="'.$settings->getValue( 'tcg_discord' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'tcg_discord' ).'</i></td></tr>
+    
+    <tr><td class="headSub">TCG Twitter:</td>
+        <td valign="middle"><input type="text" name="'.$settings->getName( 'tcg_twitter' ).'" value="'.$settings->getValue( 'tcg_twiter' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'tcg_twitter' ).'</i></td></tr>
+    
     <tr><td class="headSub">Absolute Path:</td>
         <td valign="middle"><input type="text" name="'.$settings->getName( 'file_path_absolute' ).'" value="'.$settings->getValue( 'file_path_absolute' ).'" style="width:50%;" required /> <i>'.$settings->getDesc( 'file_path_absolute' ).'</i></td></tr>
     
