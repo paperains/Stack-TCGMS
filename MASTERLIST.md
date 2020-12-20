@@ -3,7 +3,7 @@ This will be the complete list of the developers plans and suggestions as they m
 
 ### Front-end
 - [x] Provide a default front-end layout.
-- [ ] Allow an admin to open or close TCG registration.
+- [x] Allow an admin to open or close TCG registration.
 - [x] Set the levels on the default about page to reflect the database.
 - [ ] Allow users to choose which level badge set shows on their profile.
 - [x] Any on-site contact form such as general contact, quit form and doubles exchange should be received via on-site mailbox instead of the TCG's email address.
@@ -13,7 +13,7 @@ This will be the complete list of the developers plans and suggestions as they m
   - [x] A deck claims and donations form to get more decks to create for prejoin.
 
 ### Admin / Back-end
-- [ ] Allow changing social media links via the admin panel (discord, twitter, etc)
+- [x] Allow changing social media links via the admin panel (discord, twitter, etc)
 - [ ] Allow navigation bar to keep current category expanded by default - even with child pages of the ones linked.
 - [x] Add link back to Dashboard (index.php) - already linked via the `Dashboard` menu, can be added to `CoreAdmin` logo as well.
 - [ ] Allow an admin to schedule a blog post.
