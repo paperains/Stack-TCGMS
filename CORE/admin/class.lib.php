@@ -431,6 +431,49 @@ class General {
       echo "<br /><br />\n\n";
     }
   }
+
+  function getItem( $item ) {
+    $database = new Database;
+    $sanitize = new Sanitize;
+    $item = $sanitize->for_db($item);
+
+    $login = isset($_SESSION['USR_LOGIN']) ? $_SESSION['USR_LOGIN'] : null;
+    $row = $database->get_assoc("SELECT * FROM `user_list` WHERE `email`='$login'");
+    $player = $row['name'];
+
+    $query = $database->query("SELECT * FROM `user_items` WHERE `name` = '$player'");
+    $row = mysqli_fetch_assoc($query);
+    return $row[$item];
+  }
+
+  function cardSearch( $stat ) {
+    $database = new Database;
+    $sanitize = new Sanitize;
+    $stat = $sanitize->for_db($stat);
+
+    // BEGIN SEARCH FORM
+    echo '<center><form method="post" action="">
+    <input type="text" name="term" placeholder="Search released decks..." size="30" /> <input type="submit" name="search" value="   Search!   " />
+    </form><br />';
+
+    // DO SEARCH HERE
+    if ( isset($_REQUEST['term']) ) {
+      $term = $sanitize->for_db($_POST['term']);
+      $sql = $database->query("SELECT * FROM `tcg_cards` WHERE `status`='$stat' AND (`deckname` LIKE '%".$term."%' OR `filename` LIKE '%".$term."%' OR `series` LIKE '%".$term."%' OR `donator` LIKE '%".$term."%' OR `maker` LIKE '%".$term."%') ORDER BY `deckname` ASC");
+      if (mysqli_num_rows($sql) == 0) { echo '<div class="box-warning"><b>Error!</b> Your search query didn\'t match any data from the database.</div>'; }
+      else {
+        echo '<div class="box-success"><b>Success!</b> The data below shows any matches from your search query: <b>'.$term.'</b>.</div><br />
+        <table width="80%" cellspacing="3" class="border">
+        <tr><td class="headLineSmall" width="30%">Deckname</td><td class="headLineSmall" width="15%">Donator</td><td class="headLineSmall" width="15%">Maker</td></tr>';
+        while ($search = mysqli_fetch_assoc($sql)) {
+          echo '<tr><td class="tableBodySmall"><a href="/cards.php?view=released&deck='.$search['filename'].'">'.$search['deckname'].'</a></td><td class="tableBodySmall"><a href="/members.php?id="'.$search['donator'].'">'.$search['donator'].'</a></td><td class="tableBodySmall"><a href="/members.php?id='.$search['maker'].'">'.$search['maker'].'</a></td></tr>';
+        }
+      echo '</table><br />';
+      }
+    }
+    echo '</center>';
+    return true;
+  }
 }
 
 /* Class for your file uploads which are dependent to your file paths and folders
