@@ -23,6 +23,9 @@ $tcgowner = $settings->getValue('tcg_owner');
 $tcgcards = $settings->getValue('file_path_cards');
 $tcgext = $settings->getValue('cards_file_type');
 $tcgimg = $settings->getValue('file_path_img');
+$tcgpath = $settings->getValue('file_path_absolute');
+$tcgdiscord = $settings->getValue('tcg_discord');
+$tcgtwitter = $settings->getValue('tcg_twitter');
 
 /* Feel free to change this according to your liking.
  * This is a blurb that will be displayed when a player access the game prize page directly.
