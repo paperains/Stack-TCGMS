@@ -57,7 +57,7 @@ if ($do == "login") {
             <p>Oops, it looks like one or more values from the form were not entered. Please go back and try again.</p>';
         } else {
             echo '<h1>Login</h1>
-            <p>Below is the login form for the member panel here at '.$tcgname.'. <b>This is only for current members</b>. If you would like to join, please click <a href="'.$tcgurl.'members.php?page=join">here</a> to see the rules and join.</p><center>
+            <p>Below is the login form for the member panel here at '.$tcgname.'. <b>This is only for current members</b>. If you would like to join, please click <a href="/members.php?page=join">here</a> to see the rules and join.</p><center>
             <form method="post" action="/account.php?do=login&action=loggedin">
             <table width="100%" class="border" cellspacing="3" border="0">
             <tr><td class="headLine" width="15%">Email:</td><td class="tableBody" width="35%"><input type="text" name="username" placeholder="username@domain.tld" style="width:90%;" /></td></tr>
@@ -290,7 +290,7 @@ else if ($do == "edit-information") {
         
         $update = $database->query("UPDATE `user_list` SET email='$email', url='$url', birthday='$birthday', status='$status', collecting='$collecting', about='$about', twitter='$twitter', discord='$discord' WHERE id='$id'");
         if ( !$update ) { $error[] = "Sorry, there was an error and your info was not updated. ".mysqli_error().""; }
-		else { $success[] = "Your information has been updated!"; }
+	else { $success[] = "Your information has been updated!"; }
     }
     
     $sql = $database->query("SELECT * FROM `user_list` WHERE email='$login'");
@@ -352,6 +352,7 @@ else if ($do == "edit-information") {
             <td class="headLine">Status:</td><td class="tableBody"><select name="status" style="width: 95%;">
             <option value="'.$row['status'].'">Current: '.$row['status'].'</option>
             <option value="Hiatus">Hiatus</option>
+	    <option value="Active">Active</option>
             </select></td>
         </tr>
         <tr><td class="headLine" valign="top">Biography:</td><td class="tableBody" colspan="3"><textarea name="about" rows="5" style="width: 95%;">'.$old_bio.'</textarea></td></tr>
@@ -375,7 +376,7 @@ else if ($do == "edit-items") {
         $mcard = explode(',',$mcard);
         $ecard = explode(',',$ecard);
 
-		array_walk($mcard, 'trim_value');
+	array_walk($mcard, 'trim_value');
         array_walk($ecard, 'trim_value');
 
         usort($mcard, 'strnatcasecmp');
@@ -386,7 +387,7 @@ else if ($do == "edit-items") {
             
         $update = $database->query("UPDATE `user_items` SET `mcard`='$mcard', `ecard`='$ecard' WHERE `name`='$name'");
         if ( !$update ) { $error[] = "Sorry, there was an error and your items was not updated. ".mysqli_error().""; }
-		else { $success[] = "Your items has been updated!"; }
+	else { $success[] = "Your items has been updated!"; }
     }
 
     $sql = $database->query("SELECT * FROM `user_items` WHERE name='$player'");
@@ -423,8 +424,8 @@ else {
         <p>Welcome to your member panel, <strong>'.$row['name'].'</strong>! From here you can submit various forms, edit your info, and play all of the games here at '.$tcgname.'!</p>';
         if($row['status']=="Pending") {
             echo '<p>It looks like you recently joined '.$tcgname.' and your account hasn\'t been activated yet. You must be approved by an adminstrator before you can fully access the TCG. Your account should be activated soon. If you joined more than 2 weeks ago and haven\'t received your activation email, please email us at <a href="mailto:'.$tcgemail.'">'.$tcgemail.'</a></p>';
-        } elseif($row['status']=="Inactive" && $row['status']=="Hiatus") {
-            echo '<p>It looks like you haven\'t been active in the past two months and have been placed on the Inactive list. In order to play games here you must <a href="/account.php?do=activate">reactivate</a> your account.</p>';
+        } elseif($row['status']=="Hiatus") {
+            echo '<p>It looks like you have set your status to Hiatus. In order to play games here you must reactivate your account. This is self-service, and to do so, go to <a href="/account.php?do=edit-information">Edit Information</a> and set your status to Active.</p>';
         }
         echo '<div class="statLink">
             <a href="/account.php?do=logs">Permanent Logs</a>
