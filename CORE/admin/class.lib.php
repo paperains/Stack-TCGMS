@@ -446,9 +446,10 @@ class General {
     return $row[$item];
   }
 
-  function cardSearch( $stat ) {
+  function cardSearch( $table, $stat ) {
     $database = new Database;
     $sanitize = new Sanitize;
+    $table = $sanitize->for_db($table);
     $stat = $sanitize->for_db($stat);
 
     // BEGIN SEARCH FORM
@@ -459,7 +460,7 @@ class General {
     // DO SEARCH HERE
     if ( isset($_REQUEST['term']) ) {
       $term = $sanitize->for_db($_POST['term']);
-      $sql = $database->query("SELECT * FROM `tcg_cards` WHERE `status`='$stat' AND (`deckname` LIKE '%".$term."%' OR `filename` LIKE '%".$term."%' OR `series` LIKE '%".$term."%' OR `donator` LIKE '%".$term."%' OR `maker` LIKE '%".$term."%') ORDER BY `deckname` ASC");
+      $sql = $database->query("SELECT * FROM `tcg_$table` WHERE `status`='$stat' AND (`deckname` LIKE '%".$term."%' OR `filename` LIKE '%".$term."%' OR `series` LIKE '%".$term."%' OR `donator` LIKE '%".$term."%' OR `maker` LIKE '%".$term."%') ORDER BY `deckname` ASC");
       if (mysqli_num_rows($sql) == 0) { echo '<div class="box-warning"><b>Error!</b> Your search query didn\'t match any data from the database.</div>'; }
       else {
         echo '<div class="box-success"><b>Success!</b> The data below shows any matches from your search query: <b>'.$term.'</b>.</div><br />
