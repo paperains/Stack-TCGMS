@@ -16,3 +16,12 @@ This is the record of the script's changes for easy access and review.
 - Changed the function Value to Password
   - This will now check if the password that were typed twice matches.
 - Added absolute file path to the list of settings to be used for file uploads function.
+- Added social media accounts to be edited via admin panel's configuration page.
+- Added option to open/close registration via admin panel's configuration page.
+  - Registration page is locked when registration is set to `Close` from the following pages:
+    - Members join page (members.php?page=join)
+    - Pre-defined navigation link (/theme/header.php)
+    - Login box for member panel (/theme/sidebar.php)
+- Added variables for absolute path, Discord and Twitter to the `class.call.php` file.
+- Edited blog query from the index.php file to only show `Published` posts.
+- Created `prejoin.php` for pre-prejoin phase for prejoin deck donations and deck voting.
