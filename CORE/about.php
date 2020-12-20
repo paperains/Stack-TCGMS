@@ -25,14 +25,14 @@ include($header);
     <tr>
         <td width="49%" valign="top">
             <h1>Levels & Level Ups</h1>
-            <p>When you join <u>Hanayaka TCG</u>, you begin at level one and work your way up through the levels. In order to level up, you will need to collect the amount of cards needed to progress as shown in the table below and it is based on card worth, not count. The rewards for leveling up are <?php
+            <p>When you join <u><?php echo $tcgname; ?></u>, you begin at level one and work your way up through the levels. In order to level up, you will need to collect the amount of cards needed to progress as shown in the table below and it is based on card worth, not count. The rewards for leveling up are <?php
             if($settings->getValue('cards_level_choice')!=0) {
                 echo "<b>".$settings->getValue('cards_level_choice')."</b> card(s) of choice";
             }
             if($settings->getValue('cards_level_reg')!=0) {
                 echo ", <b>".$settings->getValue('cards_level_reg')."</b> random cards";
             }
-            ?>, <b>XX</b> currency01 and <b>XX</b> currenecy02.</p>
+            ?>, and <b>XX</b> CURRENCY.</p>
             <table width="100%" cellspacing="3" class="border">
             <tr><td width="60%" class="headLine">LEVEL</td><td width="40%" class="headLine">CARDS</td></tr>
             <?php
@@ -52,7 +52,7 @@ include($header);
             <p>Once you have collecting all of the cards in a deck, you have <b>mastered</b> the deck. This means you cannot trade away any of these cards (except for doubles, of course) but you will receive some rewards for doing so. For every <b>card deck</b> you master, you receive <?php
     if($settings->getValue('cards_master_choice')!=0) { echo "<b>".$settings->getValue('cards_master_choice')."</b> card(s) of choice"; }
     if($settings->getValue('cards_master_reg')!=0) { echo ", <b>".$settings->getValue('cards_master_reg')."</b> random cards"; }
-?> and <b>XX</b> currency01.</p>
+?> and <b>XX</b> CURRENCY.</p>
             <p align="center"><img src="/images/cards/filler.png" /> <img src="/images/cards/filler.png" /></p>
             <h2>Cards & Deck Types</h2>
             <p>Cards are the heart of every TCG and your goal is to complete these decks by gaining them through games or trade with other members. All decks have XX cards each and features CHANGE SUBJECT HERE, and all are worth <i>X</i>.</p>
