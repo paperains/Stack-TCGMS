@@ -23,9 +23,14 @@ This will be the complete list of the developers plans and suggestions as they m
 
 ### Site-wide
 - [ ] Change all iterations of `cake` and `tickets` or `cur1` and `cur2` to a variable in which the admin can adjust in the settings.
+  - [ ] Allow admin to decide how many currencies they can use upon installation (?)
 - [ ] Allow admin to choose whether to have deck colors as a "thing".
 
 ### Features to Consider
+- [ ] Member decks feature.
+  - [ ] Allow admin to input how many cards are there in one member deck.
+  - [ ] Allow admin to input/add/edit/delete the tasks to unlock cards.
+  - [ ] Allow members to submit their finished tasks that will automatically unlock the cards associated with it.
 - [ ] Built-in forum for larger TCGs.
   - [ ] Allow an admin to make it an option during installation.
 - [ ] Revert the script back to its original logs setup:
