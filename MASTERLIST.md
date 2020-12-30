@@ -11,6 +11,7 @@ This will be the complete list of the developers plans and suggestions as they m
 - [x] Add a pre-prejoin system for potential members:
   - [x] A deck voting form in able to help the admin determine which decks to release for prejoin.
   - [x] A deck claims and donations form to get more decks to create for prejoin.
+- [x] Allow users to show whether they accept random trades and/or let others to put trades through.
 
 ### Admin / Back-end
 - [x] Allow changing social media links via the admin panel (discord, twitter, etc)
