@@ -282,6 +282,8 @@ else if ($do == "edit-information") {
         $twitter = $sanitize->for_db($_POST['twitter']);
         $discord = $sanitize->for_db($_POST['discord']);
         $collecting = $sanitize->for_db($_POST['collecting']);
+	$random = $sanitize->for_db($_POST['random']);
+        $accept = $sanitize->for_db($_POST['accept']);
         $birthday = date("Y-m-d", strtotime($_POST['year']."-". $_POST['month']."-".$_POST['day']));
         $about = $_POST['about'];
         $about = nl2br($about);
@@ -314,6 +316,16 @@ else if ($do == "edit-information") {
         <tr>
             <td class="headLine">Twitter:</td><td class="tableBody"><input type="text" name="twitter" value="'.$row['twitter'].'" style="width: 90%;" /></td>
             <td class="headLine">Discord:</td><td class="tableBody"><input type="text" name="discord" value="'.$row['discord'].'" style="width: 90%;" /></td>
+        </tr>
+	<tr>
+            <td class="headLine">Accepts Random:</td><td class="tableBody">';
+            if ($row['random_trade'] == "0") { echo '<input type="radio" name="random" value="1" /> Yes &nbsp;&nbsp; <input type="radio" name="random" value="0" checked /> No'; }
+            else { echo '<input type="radio" name="random" value="1" checked /> Yes &nbsp;&nbsp; <input type="radio" name="random" value="0" /> No'; }
+            echo '</td>
+            <td class="headLine">Allows Trade:</td><td class="tableBody">';
+            if ($row['accept_trade'] == "0") { echo '<input type="radio" name="accept" value="1" /> Yes &nbsp;&nbsp; <input type="radio" name="accept" value="0" checked /> No'; }
+            else { echo '<input type="radio" name="accept" value="1" checked /> Yes &nbsp;&nbsp; <input type="radio" name="accept" value="0" /> No'; }
+            echo '</td>
         </tr>
         <tr><td class="headLine">Birthday:</td><td class="tableBody" colspan="3"><select name="month">
         <option value="'.date("m", strtotime($row['birthday'])).'">Current: '.date("F", strtotime($row['birthday'])).'</option>';
