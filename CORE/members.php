@@ -282,8 +282,12 @@ else {
               else { echo '<li><font color="#636363"><span class="fas fa-crown" aria-hidden="true" title="Non-Prejoiner"></span></font></li>'; }
               echo '<li><a href="'.$row['url'].'" target="_blank" title="Visit Trade Post"><span class="fas fa-home" aria-hidden="true"></span></a></li>
               <li><span class="fas fa-gift" aria-hidden="true" title="Born on '.date("F d", strtotime($row['birthday'])).'"></span></li>
-              <li><a href="/cards.php?view=released&deck='.$row['collecting'].'"><span class="fas fa-puzzle-piece" aria-hidden="true" title="Collecting '.$row['collecting'].'"></span></a></li>
-            </div>
+              <li><a href="/cards.php?view=released&deck='.$row['collecting'].'"><span class="fas fa-puzzle-piece" aria-hidden="true" title="Collecting '.$row['collecting'].'"></span></a></li>';
+              if ($row['random_trade']=="0") { echo '<li><font color="#d9a3a9"><span class="fas fa-bell-slash" aria-hidden="true" title="I don\'t accept random trades!"></span></font></li>'; }
+              else { echo '<li><font color="#a4c8de"><span class="fas fa-bell" aria-hidden="true" title="Send me any random trades, please!?"></span></font></li>'; }
+              if ($row['accept_trade']=="0") { echo '<li><font color="#d9a3a9"><span class="fas fa-toggle-off" aria-hidden="true" title="Please don\'t put your trades through!"></span></font></li>'; }
+              else { echo '<li><font color="#a4c8de"><span class="fas fa-toggle-on" aria-hidden="true" title="Feel free to put all your trades through!"></span></font></li>'; }
+            echo '</div>
             </div>';
           }
           echo "</center>";
