@@ -5,6 +5,7 @@ This has been a fun project ever since MyTCG became deprecated and left unupdate
 ## Developers
 - [Aki](https://www.reijou.net) (Author)
 - [Rheanna](http://www.rheanimate.com) (Contributor)
+- [Taty](http://mobe.bombilate.net/) (Contributor)
 
 # Credits
 - Calico (for the online TCG concept)
