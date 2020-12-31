@@ -272,7 +272,7 @@ class Check {
       }
       $_POST[$key] = stripslashes(strip_tags($value));
     }
-    return true();
+    return true;
   }
 
   function Donation() {
@@ -317,7 +317,7 @@ class General {
   }
 
   // NEED TO CHANGE CURRENCY VARIABLES THAT CAN BE MODIFIED VIA ADMIN PANEL
-  function gamePrize( $set, $game, $sub, $rand, $choice, $cur1 $cur2, $cur3 ) {
+  function gamePrize( $set, $game, $sub, $rand, $choice, $cur1, $cur2, $cur3 ) {
     $database = new Database;
     $sanitize = new Sanitize;
     $set = $sanitize->for_db($set);
