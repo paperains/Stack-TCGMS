@@ -21,9 +21,10 @@ This will be the complete list of the developers plans and suggestions as they m
   - [ ] Add a method of actually scheduling when the post will be released.
 - [x] Allow an admin to draft a blog post.
 - [x] Add an absolute path for general use via the settings database and admin panel.
+- [x] Allow an admin to create a page content that can read PHP codes.
 
 ### Site-wide
-- [ ] Change all iterations of `cake` and `tickets` or `cur1` and `cur2` to a variable in which the admin can adjust in the settings.
+- [x] Change all iterations of `cake` and `tickets` or `cur1` and `cur2` to a variable in which the admin can adjust in the settings.
   - [ ] Allow admin to decide how many currencies they can use upon installation (?)
 - [ ] Allow admin to choose whether to have deck colors as a "thing".
 
@@ -31,10 +32,9 @@ This will be the complete list of the developers plans and suggestions as they m
 - [ ] Member decks feature.
   - [ ] Allow admin to input how many cards are there in one member deck.
   - [ ] Allow admin to input/add/edit/delete the tasks to unlock cards.
-  - [ ] Allow members to submit their finished tasks that will automatically unlock the cards associated with it.
+  - [ ] Allow members to submit their finished tasks one at a time. A task must be approved first before a member can submit another task.
+  - [ ] Allow an admin to review a submitted task before activating the card assigned to it.
 - [ ] Built-in forum for larger TCGs.
   - [ ] Allow an admin to make it an option during installation.
-- [ ] Revert the script back to its original logs setup:
-  - [ ] Retain the individual member database tables for logs and trades.
-  - [ ] Use only a general `user_logs` and `user_trades` database tables for all members.
-  - [ ] Make it an option to use either of these.
+- [x] Revert the script back to its original logs setup:
+  - [x] Use only a general `user_logs` and `user_trades` database tables for all members.
