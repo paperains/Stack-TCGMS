@@ -449,15 +449,15 @@ else {
                 if($row['memcard']=="Yes") { echo '<img src="'.$tcgcards.'mc-'.$row['name'].'.png" />'; }
                 else { echo '<img src="'.$tcgcards.'mc-filler.png" />'; }
             echo '</td>
-            <td width="15%" class="headLine" height="5%">Cakes</td>
-            <td width="15%" class="headLine" height="5%">Tickets</td>
+            <td width="15%" class="headLine" height="5%">'.$x1.'s</td>
+            <td width="15%" class="headLine" height="5%">'.$x2.'s</td>
             <td width="20%" rowspan="2" align="center">';
             if ($row['level'] != "10") { $level = "0".$row['level']; }
             else { $level = $row['level']; }
-                echo '<img src="/images/badges/name01-'.$level.'.png" title="Level '.$level.'" />
+                echo '<img src="/images/badges/'.$items['level_badge'].'-'.$level.'.png" title="Level '.$level.'" />
             </td>
             </tr>
-            <tr class="rows"><td align="center" class="tableBody"><img src="'.$settings->getValue('file_path_img').'cur1.png" /> x <b>'.$items['cur1'].'</b></td><td align="center" class="tableBody"><img src="'.$settings->getValue('file_path_img').'cur2.png" /> x <b>'.$items['cur2'].'</b></td></tr>
+            <tr class="rows"><td align="center" class="tableBody"><img src="/images/'.$settings->getValue('x1').'" /> x <b>'.$items['x1'].'</b></td><td align="center" class="tableBody"><img src="/images/'.$settings->getValue('x2').'" /> x <b>'.$items['x2'].'</b></td></tr>
         </table><br />
 
         <table width="100%" cellspacing="5" border="0" class="table table-bordered table-striped">
