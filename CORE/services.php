@@ -106,9 +106,9 @@ else if ($form == "deck-donations") {
             
             if ($update == TRUE) {
                 if ($row['category'] == "Puzzle") {
-                    $database->query("INSERT INTO `user_rewards` (`name`,`type`,`subtitle`,`mcard`,`cards`,`cur1`,`cur2`,`timestamp`) VALUES ('$name','Donations','($deck)','No','1','2','0','$date')");
+                    $database->query("INSERT INTO `user_rewards` (`name`,`type`,`subtitle`,`mcard`,`cards`,`x1`,`x2`,`timestamp`) VALUES ('$name','Donations','($deck)','No','1','2','0','$date')");
                 } else {
-                    $database->query("INSERT INTO `user_rewards` (`name`,`type`,`subtitle`,`mcard`,`cards`,`cur1`,`cur2`,`timestamp`) VALUES ('$name','Donations','($deck)','No','3','2','0','$date')");
+                    $database->query("INSERT INTO `user_rewards` (`name`,`type`,`subtitle`,`mcard`,`cards`,`x1`,`x2`,`timestamp`) VALUES ('$name','Donations','($deck)','No','3','2','0','$date')");
                 }
                 $success[] = "Your deck donation has been received and your rewards has been sent!<br />Please standby for your deck should there be any necessary image replacements needed.";
             } else {
@@ -124,7 +124,7 @@ else if ($form == "deck-donations") {
         <li>Only images that is related to SUBJECT that will fit to our sets are allowed.</li>
         <li>Donations need at least 25 images, but more is encouraged.</li>
         <li>You can donate up to <b>X decks</b> per month.</li>
-        <li>For every <b>individual deck</b> you donate, you will get X random cards and X currency01. You\'ll get X random card and X currency01 for <b>puzzle decks</b>.</li></ul><center>';
+        <li>For every <b>individual deck</b> you donate, you will get X random cards and X '.$x1.'s. You\'ll get X random card and X '.$x1.' for <b>puzzle decks</b>.</li></ul><center>';
         if ( isset($error) ) { foreach ( $error as $msg ) { echo '<div class="box-error"><b>Error!</b> '.$msg.'</div><br />'; } }
         if ( isset($success) ) { foreach ( $success as $msg ) { echo '<div class="box-success"><b>Success!</b> '.$msg.'</div><br />'; } }
         echo '</center><form method="post" action="/services.php?form=deck-donations">
@@ -208,13 +208,14 @@ else if ($form == "masteries") {
                     $card2 = "choicenum$i";
                     $choices .= $_POST[$card].$_POST[$card2].", ";
                 }
-                echo '<img src="'.$tcgimg.'cur1.png" /> [x00]';
-                echo '<p><strong>Deck Mastery ('.$mastered.'):</strong> '.$choices.''.$rewards.'+XX currency01';
+                echo '<img src="/images/'.$settings->getValue('x1').'" /> [x'.$settings->getValue('master_x1').']';
+                echo '<p><strong>Deck Mastery ('.$mastered.'):</strong> '.$choices.''.$rewards.'+'.$settings->getValue('master_x1').' '.$x1.'s';
                 echo '</p></center>';
                 $today = date("Y-m-d", strtotime("now"));
-                $newSet = $choices."".$rewards."+XX currency01";
-                $database->query("INSERT INTO `logs_$player` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('$player','Service','Deck Mastery','(".$mastered.")','$newSet','$today')");
-                $database->query("UPDATE `user_items` SET `cur1`=cur1+'X', `cards`=cards+'X' WHERE `name`='$player'");
+                $newSet = $choices."".$rewards."+".$settings->getValue('master_x1')." ".$x1."s";
+                $total = $settings->getValue('cards_master_choice') + $settings->getValue('cards_master_reg');
+                $database->query("INSERT INTO `user_logs` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('$player','Service','Deck Mastery','($mastered)','$newSet','$today')");
+                $database->query("UPDATE `user_items` SET `x1`=x1+'".$settings->getValue('master_x1')."', `cards`=cards+'$total' WHERE `name`='$player'");
             } else {
                 echo '<h1>Error</h1>
                 <p>It looks like there was an error in processing your mastery form. Send the information to '.$tcgemail.' and we will send you your rewards ASAP. Thank you and sorry for the inconvenience.</p>';
@@ -309,17 +310,18 @@ else if ($form == "level-up") {
                     echo "<img src=\"$tcgcards$card.png\" border=\"0\" /> ";
                     $rewards .= $card.", ";
                 } echo '<br />';
-                echo '<img src="'.$tcgimg.'cur1.png" /> [x00] <img src="'.$tcgimg.'cur2.png" /> [x00]';
+                echo '<img src="/images/'.$settings->getValue('x1').'" /> [x'.$settings->getValue('level_x1').'] <img src="/images/'.$settings->getValue('x2').'" /> [x'.$$settings->getValue('level_x2').']';
                 echo '<p><strong>Level Up ('.$level.'):</strong> ';
                 for($i=1; $i<=$settings->getValue('cards_level_choice'); $i++) {
                     $card = "choice$i"; $card2 = "choicenum$i";
                     $choices .= $_POST[$card].$_POST[$card2].", ";
                 }
-                echo $choices.''.$rewards.'+XX currency01, +XX currency02</p></center>';
+                echo $choices.''.$rewards.'+'.$settings->getValue('level_x1').' '.$x1.'s, +'.$settings->getValue('level_x2').' '.$x2.'s</p></center>';
                 $today = date("Y-m-d", strtotime("now"));
-                $newSet = $choices."".$rewards."+XX currency01, +XX currency02";
-                $database->query("INSERT INTO `logs_$player` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('$player','Service','Level Up','(".$level.". ".$lvlNew['name'].")','$newSet','$today')");
-                $database->query("UPDATE `user_items` SET `cur1`=cur1+'XX', `cur2`=cur2+'XX', `cards`=cards+'XX' WHERE `name`='$player'");
+                $total = $settings->getValue('cards_level_choice') + $settings->getValue('cards_level_reg');
+                $newSet = $choices."".$rewards."+".$settings->getValue('level_x1')." ".$x1."s, +".$settings->getValue('level_x2')." ".$x2."s";
+                $database->query("INSERT INTO `user_logs` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('$player','Service','Level Up','(".$level.". ".$lvlNew['name'].")','$newSet','$today')");
+                $database->query("UPDATE `user_items` SET `x1`=x1+'".$settings->getValue('level_x1')."', `x2`=x2+'".$settings->getValue('level_x2')."', `cards`=cards+'$total' WHERE `name`='$player'");
             } else {
                 echo '<h1>Error</h1>
                 <p>It looks like there was an error in processing your level up form. Send the information to '.$tcgemail.' and we will send you your rewards ASAP. Thank you and sorry for the inconvenience.</p>';
@@ -388,7 +390,7 @@ else if ($form == "trading-rewards") {
             if (!get_magic_quotes_gpc()) { $row['trade'] = addslashes($row['trade']); }
             $newlog = $logs.''.$row['trade'];
 
-            $result = $database->query("INSERT INTO `trades_$name` (`trader`,`outgoing`,`incoming`,`timestamp`) VALUES ('$to','$out','$inc','$date')") or print("Can't insert into table trades_$name.<br />" . $result . "<br />Error:" . mysqli_connect_error($result));
+            $result = $database->query("INSERT INTO `user_trades` (`name`,`trader`,`outgoing`,`incoming`,`timestamp`) VALUES ('$name','$to','$out','$inc','$date')") or print("Can't insert into table trades_$name.<br />" . $result . "<br />Error:" . mysqli_connect_error($result));
 
             if ($result != false) {
                 $database->query("UPDATE `trades` SET `points`=points+'$total', `updated`='$date' WHERE `name`='$name'");
@@ -412,7 +414,7 @@ else if ($form == "trading-rewards") {
             if ($update != false) {
                 echo '<h1>Redeem Rewards</h1>
                 <p>Get your redeemed rewards for '.$sets.' set of trades below!</p><center>';
-                $min=1; $max = mysqli_num_rows($result); $rewards = null; $total = 4*$sets; $cur1 = X*$sets;
+                $min=1; $max = mysqli_num_rows($result); $rewards = null; $total = 4*$sets; $cur1 = $settings->getValue('trade_x1')*$sets;
                 for($i=0; $i<$total; $i++) {
                     mysqli_data_seek($result,rand($min,$max)-1);
                     $row = mysqli_fetch_assoc($result);
@@ -424,12 +426,12 @@ else if ($form == "trading-rewards") {
                     $rewards .= $card.", ";
                 }
                 $rewards = substr_replace($rewards,"",-2);
-                echo '<img src="/images/cur1.png" /> [x'.$cur1.']';
-                echo '<p><strong>Trade Points (x'.$sets.'):</strong> '.$rewards.', +'.$cur1.' currency01</p></center>';
+                echo '<img src="/images/'.$settings->getValue('x1').'" /> [x'.$cur1.']';
+                echo '<p><strong>Trade Points (x'.$sets.'):</strong> '.$rewards.', +'.$cur1.' '.$x1.'s</p></center>';
                 $today = date("Y-m-d", strtotime("now"));
-                $newSet = $rewards.' +'.$cur1.' currency01';
-                $database->query("INSERT INTO `logs_$name` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('$name','Service','Trade Points','(x".$sets.")','$newSet','$today')");
-                $database->query("UPDATE `user_items` SET `cur1`=cur1+'$cur1', `cards`=cards+'$total' WHERE `name`='$name'");
+                $newSet = $rewards.' +'.$cur1.' '.$x1.'s';
+                $database->query("INSERT INTO `user_logs` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('$name','Service','Trade Points','(x".$sets.")','$newSet','$today')");
+                $database->query("UPDATE `user_items` SET `x1`=x1+'$cur1', `cards`=cards+'$total' WHERE `name`='$name'");
             } else {
                 echo '<h1>Trading Rewards: Error</h1>
                 <p>It seems that there was a problem processing your trade logs form. Kindly send your information to <a href="mailto:'.$tcgemail.'">'.$tcgemail.'</a> or through our Discord server. Thank you and we apologize for the inconvenience.</p>';
@@ -589,7 +591,7 @@ else if ($form == "doubles") {
                 $rewards = substr_replace($rewards,"",-2);
                 echo '<p><strong>Doubles Exchange:</strong> '.$rewards.'</p></center>';
                 $today = date("Y-m-d", strtotime("now"));
-                $database->query("INSERT INTO `logs_$name` (`name`,`type`,`title`,`rewards`,`timestamp`) VALUES ('$name','Service','Doubles Exchange','$rewards','$today')");
+                $database->query("INSERT INTO `user_logs` (`name`,`type`,`title`,`rewards`,`timestamp`) VALUES ('$name','Service','Doubles Exchange','$rewards','$today')");
             } else {
                 echo '<h1>Doubles Exchange : Error</h1>
                 <p>It looks like there was an error in processing your doubles form. Send the information to '.$tcgemail.' and we will send you your doubles ASAP. Thank you and sorry for the inconvenience.</p>';
