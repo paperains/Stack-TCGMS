@@ -158,6 +158,20 @@ class Count {
     echo $result;
   }
   
+  function numCurrency ( $item ) {
+    $database = new Database;
+    $sanitize = new Sanitize;
+    $item = $sanitize->for_db($item);
+
+    $login = isset($_SESSION['USR_LOGIN']) ? $_SESSION['USR_LOGIN'] : null;
+    $row = $database->get_assoc("SELECT * FROM `user_list` WHERE `email`='$login'");
+    $player = $row['name'];
+
+    $query = $database->query("SELECT * FROM `user_items` WHERE `name` = '$player'");
+    $row = mysqli_fetch_assoc($query);
+    return $row[$item];
+  }
+  
   function numRewards () {
     $database = new Database;
     $sanitize = new Sanitize;
@@ -178,7 +192,7 @@ class Count {
     $row = $database->get_assoc("SELECT * FROM `user_list` WHERE `email`='$login'");
     $player = $row['name'];
 
-    $result = $database->num_rows("SELECT * FROM `user_mbox` WHERE `recipient`='$player'");
+    $result = $database->num_rows("SELECT * FROM `user_mbox` WHERE `recipient`='$player' AND `read_to`='1'");
     echo $result;
   }
 }
@@ -317,17 +331,25 @@ class General {
   }
 
   // NEED TO CHANGE CURRENCY VARIABLES THAT CAN BE MODIFIED VIA ADMIN PANEL
-  function gamePrize( $set, $game, $sub, $rand, $choice, $cur1, $cur2, $cur3 ) {
+  function gamePrize( $set, $game, $sub, $rand, $choice, $x1, $x2, $x3 ) {
     $database = new Database;
     $sanitize = new Sanitize;
     $set = $sanitize->for_db($set);
     $sub = $sanitize->for_db($sub);
     $game = $sanitize->for_db($game);
-    $cur1 = $sanitize->for_db($cur1);
-    $cur2 = $sanitize->for_db($cur2);
-    $cur3 = $sanitize->for_db($cur3);
+    $x1 = $sanitize->for_db($x1);
+    $x2 = $sanitize->for_db($x2);
+    $x3 = $sanitize->for_db($x3);
     $rand = $sanitize->for_db($rand);
     $choice = $sanitize->for_db($choice);
+
+    $xn1 = $settings->getValue( 'x1' );
+    $xn2 = $settings->getValue( 'x2' );
+    $xn3 = $settings->getValue( 'x3' );
+
+    $xn1 = substr_replace($xn1,"",-4);
+    $xn2 = substr_replace($xn2,"",-4);
+    $xn3 = substr_replace($xn3,"",-4);
 
     $cards = $rand + $choice;
 
@@ -356,26 +378,26 @@ class General {
       $rewards .= $card.", ";
     }
     $rewards = substr_replace($rewards,"",-2);
-    if ($cur1 != 0 && $cur2 != 0) {
-      echo '<img src="/images/cur1.png"> [x'.$cur1.'] <img src="/images/cur2.png"> [x'.$cur2.']';
-      echo "<p><strong>$game"; if (!empty($sub)) { echo ' '.$sub; } echo ":</strong> $rewards, +$cur1 CURRENCY01, +$cur2 CURRENCY02";
-      $newSet = $rewards.', +'.$cur1.' CURRENCY01, +'.$cur2.' CURRENCY02';
-    } else if ($cur1 != 0 && $cur2 == 0) {
-      echo '<img src="/images/cur1.png"> [x'.$cur1.']';
-      echo "<p><strong>$game"; if (!empty($sub)) { echo ' '.$sub; } echo ":</strong> $rewards, +$cur1 CURRENCY01";
-      $newSet = $rewards.', +'.$cur1.' CURRENCY01';
-    } else if ($cur1 != 0 && $cur2 == 0 && $choice != 0) {
-      echo '<img src="/images/cur1.png"> [x'.$cur1.']';
-      echo "<p><strong>$game"; if (!empty($sub)) { echo ' '.$sub; } echo ":</strong> $choice1, $choice2, $rewards, +$cur1 CURRENCY01";
-      $newSet = $choice1.', '.$choice2.', '.$rewards.', +'.$cur1.' CURRENCY01';
+    if ($x1 != 0 && $x2 != 0) {
+      echo '<img src="/images/'.$xn1.'.png"> [x'.$x1.'] <img src="/images/'.$xn2.'.png"> [x'.$x2.']';
+      echo "<p><strong>$game"; if (!empty($sub)) { echo ' '.$sub; } echo ":</strong> $rewards, +$x1 $xn1(s), +$x2 $xn2(s)";
+      $newSet = $rewards.', +'.$x1.' '.$xn1.'(s), +'.$x2.' '.$xn2.'(s)';
+    } else if ($x1 != 0 && $x2 == 0) {
+      echo '<img src="/images/'.$xn1.'.png"> [x'.$x1.']';
+      echo "<p><strong>$game"; if (!empty($sub)) { echo ' '.$sub; } echo ":</strong> $rewards, +$x1 $xn1(s)";
+      $newSet = $rewards.', +'.$x1.' '.$xn1.'(s)';
+    } else if ($x1 != 0 && $x2 == 0 && $choice != 0) {
+      echo '<img src="/images/'.$xn1.'.png"> [x'.$x1.']';
+      echo "<p><strong>$game"; if (!empty($sub)) { echo ' '.$sub; } echo ":</strong> $choice1, $choice2, $rewards, +$x1 $xn1(s)";
+      $newSet = $choice1.', '.$choice2.', '.$rewards.', +'.$x1.' '.$xn1.'(s)';
     } else {
       echo "<p><strong>$game"; if (!empty($sub)) { echo ' '.$sub; } echo ":</strong> $rewards";
       $newSet = $rewards;
     }
     echo "</p></center>";
     $today = date("Y-m-d", strtotime("now"));
-    $database->query("UPDATE `user_items` SET `cur1`=cur1+'$cur1', `cur2`=cur2+'$cur2', `cards`=cards+'$cards', `timestamp`='$today' WHERE `name`='$player'");
-    $database->query("INSERT INTO `logs_$player` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('$player','$set','$game','$sub','$newSet','$today')");
+    $database->query("UPDATE `user_items` SET `x1`=x1+'$x1', `x2`=x2+'$x2', `cards`=cards+'$cards', `timestamp`='$today' WHERE `name`='$player'");
+    $database->query("INSERT INTO `user_logs` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('$player','$set','$game','$sub','$newSet','$today')");
   }
 
   function member( $stat ) {
@@ -395,8 +417,7 @@ class General {
         echo '<div class="memName" align="center"><a href="/members.php?id='.$row['name'].'">'.$row['name'].'</a></div>';
         echo '<div class="socIcon">';
           $prejoin = $row['prejoiner'];
-          if ($prejoin=="Beta") { echo '<li><font color="#ffa500"><span class="fas fa-fire" aria-hidden="true" title="Prejoin Beta Tester"></span></font></li>'; }
-          else if ($prejoin=="Yes") { echo '<li><font color="#c81b3c"><span class="fas fa-fire-alt" aria-hidden="true" title="Prejoiner"></span></font></li>'; }
+          if ($prejoin=="Yes") { echo '<li><font color="#c81b3c"><span class="fas fa-fire-alt" aria-hidden="true" title="Prejoiner"></span></font></li>'; }
           else { echo '<li><font color="#636363"><span class="fas fa-fire-alt" aria-hidden="true" title="Non-Prejoiner"></span></font></li>'; }
           echo '<li><a href="'.$row['url'].'" target="_blank" title="Visit Trade Post"><span class="fas fa-home" aria-hidden="true"></span></a></li>
           <li><span class="fas fa-gift" aria-hidden="true" title="Born on '.date("F d", strtotime($row['birthday'])).'"></span></li>
@@ -497,14 +518,18 @@ class Uploads {
   }
 
   function folderPath($origin, $folder) {
+    $settings = new Settings;
+    $ab_path = $settings->getValue( 'file_path_absolute' );
+	  
     global $img_desc;
+    $file['name'] = null;
     foreach($img_desc as $val) {
       $newname = $file['name'];
       /* Change according to your own filepath */
       if (empty($origin)) {
-        $path = "path/to/".$folder."/";
+        $path = $ab_path."".$folder."/";
       } else {
-        $path = "path/to/".$origin."/".$folder."/";
+        $path = $ab_path."".$origin."/".$folder."/";
       }
       move_uploaded_file($val['tmp_name'],$path.$val['name']);
     }
