@@ -27,6 +27,16 @@ $tcgpath = $settings->getValue('file_path_absolute');
 $tcgdiscord = $settings->getValue('tcg_discord');
 $tcgtwitter = $settings->getValue('tcg_twitter');
 
+/* Currency iterations.
+ * By default, you have 3 currencies to use.
+ */
+$x1 = $settings->getValue('x1');
+$x1 = substr_replace($x1, "", -4);
+$x2 = $settings->getValue('x2');
+$x2 = substr_replace($x2, "", -4);
+$x3 = $settings->getValue('x3');
+$x3 = substr_replace($x3, "", -4);
+
 /* Feel free to change this according to your liking.
  * This is a blurb that will be displayed when a player access the game prize page directly.
  */
