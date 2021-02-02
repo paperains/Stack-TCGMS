@@ -383,6 +383,7 @@ else if ($do == "edit-items") {
         $name = $sanitize->for_db($_POST['name']);
         $mcard = $sanitize->for_db($_POST['mcard']);
         $ecard = $sanitize->for_db($_POST['ecard']);
+	$lvlb = $sanitize->for_db($_POST['lvlb']);
 
         function trim_value(&$value) { $value = trim($value); }
         $mcard = explode(',',$mcard);
@@ -397,7 +398,7 @@ else if ($do == "edit-items") {
         $mcard = implode(', ',$mcard);
         $ecard = implode(', ',$ecard);
             
-        $update = $database->query("UPDATE `user_items` SET `mcard`='$mcard', `ecard`='$ecard' WHERE `name`='$name'");
+        $update = $database->query("UPDATE `user_items` SET `mcard`='$mcard', `ecard`='$ecard', `level_badge`='$lvlb' WHERE `name`='$name'");
         if ( !$update ) { $error[] = "Sorry, there was an error and your items was not updated. ".mysqli_error().""; }
 	else { $success[] = "Your items has been updated!"; }
     }
@@ -417,7 +418,16 @@ else if ($do == "edit-items") {
         <tr>
             <td class="headLine">Event Cards:</td><td class="tableBody"><textarea name="ecard" rows="5" style="width: 95%;">'.$row['ecard'].'</textarea></td>
         </tr>
-        <tr><td class="tableBody" colspan="2" align="center"><input type="submit" name="update" class="btn-success" value="Edit Gallery" /></td></tr>
+        <tr>
+	    <td class="headLine">Level Badge:</td><td class="tableBody"><selec name="lvlb" style="width:95%;">
+	    <option value="">Select a Level Badge</option>';
+	    $count = $database->num_rows("SELECT * FROM `tcg_badges`");
+	    for ($i=1; $i<=$count; $i++) {
+		$lb = $database->get_assoc("SELECT * FROM `tcg_badges` WHERE `id`='$i');
+		echo '<option value="'.$lb['set'].'">'.$lb['donator'].' ('.$lb['set'].')</option>';
+	    }
+	    echo '</select></td>
+	    <td class="headLine">Proceed?</td><td class="tableBody"><input type="submit" name="update" class="btn-success" value="Edit Gallery" /></td></tr>
         </table>
         </form></center>
         <p align="right"><a href="/account.php">Go back?</a></p>';
