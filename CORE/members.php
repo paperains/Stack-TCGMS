@@ -80,34 +80,15 @@ if ($page == "join") {
         $choice = substr_replace($choice,"",-2);
         $rand = substr_replace($rand,"",-2);
         echo "</center>";
+        $total = $settings->getValue('cards_start_choice') + $settings->getValue('cards_start_reg');
 
         $insert = $database->query("INSERT INTO `user_list` (`name`,`email`,`url`,`refer`,`birthday`,`password`,`collecting`,`about`,`twitter`,`discord`,`regdate`) VALUES ('$name','$email','$url','$refer','$bday','$pass','$collecting','$bio','N / A','N / A','$date')");
 
-        // Create Logs Table
-        $query1 = "CREATE TABLE IF NOT EXISTS `logs_$name` (
-        `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-        `type` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-        `title` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-        `subtitle` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-        `rewards` text COLLATE utf8_unicode_ci NOT NULL,
-        `timestamp` date NOT NULL DEFAULT '0000-00-00'
-        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
-        $clogs = $database->query($query1);
-
-        // Create Trades Table
-        $query2 = "CREATE TABLE IF NOT EXISTS `trades_$name` (
-        `trader` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-        `outgoing` text COLLATE utf8_unicode_ci NOT NULL,
-        `incoming` text COLLATE utf8_unicode_ci NOT NULL,
-        `timestamp` date NOT NULL DEFAULT '0000-00-00'
-        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;";
-        $ctrades = $database->query($query2);
-
         if (mail($recipient,$subject,$message,$headers)) {
-          if($insert === TRUE && $clogs === TRUE && $ctrades === TRUE) {
-            $database->query("INSERT INTO `logs_$name` (`name`,`type`,`title`,`rewards`,`timestamp`) VALUES ('$name','Service','Starter Pack','$choice, $rand','$date2')");
+          if($insert === TRUE) {
+            $database->query("INSERT INTO `user_logs` (`name`,`type`,`title`,`rewards`,`timestamp`) VALUES ('$name','Service','Starter Pack','$choice, $rand','$date2')");
             $database->query("INSERT INTO `trades` (`name`,`points`,`updated`) VALUES ('$name','0','$date2')");
-            $database->query("INSERT INTO `user_items` (`name`,`cards`,`timestamp`) VALUES ('$name','10','$date2')");
+            $database->query("INSERT INTO `user_items` (`name`,`cards`,`timestamp`) VALUES ('$name','$total','$date2')");
 
             /** Referral rewards **/
             if ($refer == "None") { }
@@ -348,8 +329,8 @@ else {
     $query = $database->query("SELECT * FROM `user_list` WHERE name='$id'");
     $sql_msg = $database->query("SELECT * FROM `user_list` WHERE `email`='$login'");
     $sql_item = $database->query("SELECT * FROM `user_items` WHERE name='$id'");
-    $log1 = $database->query("SELECT * FROM `logs_$id` WHERE `name`='$id' ORDER BY `timestamp` DESC");
-    $log2 = $database->query("SELECT * FROM `trades_$id` ORDER BY `timestamp` DESC");
+    $log1 = $database->query("SELECT * FROM `user_logs` WHERE `name`='$id' ORDER BY `timestamp` DESC");
+    $log2 = $database->query("SELECT * FROM `user_trades` WHERE `name`='$id' ORDER BY `timestamp` DESC");
     $item = mysqli_fetch_assoc($sql_item);
     $msg = mysqli_fetch_assoc($sql_msg);
 
@@ -364,9 +345,9 @@ else {
           else { echo '<img src="'.$tcgcards.'mc-filler.'.$tcgext.'" /> '; }
           if ($row['level'] < 10) {
             $num = '0'.$row['level'];
-            echo '<img src="/images/badges/aki01-0'.$row['level'].'.png" />';
+            echo '<img src="/images/badges/'.$item['level_badge'].'-0'.$row['level'].'.png" />';
           } else {
-            echo '<img src="/images/badges/aki01-'.$row['level'].'.png" />';
+            echo '<img src="/images/badges/'.$item['level_badge'].'-'.$row['level'].'.png" />';
           }
           echo '</td></tr>
           <tr>
@@ -501,7 +482,7 @@ else {
       $message .= "For: {$_POST['for']} \n";
       $message .= "Member Cards?: {$_POST['member']} \n";
 
-      $headers = "From: {$_POST['name']} <no-reply@hakumei.org> \n";
+      $headers = "From: {$_POST['name']} <$recipient> \n";
       $headers .= "Reply-To: <{$_POST['email']}>";
 
       if (mail($recipient,$subject,$message,$headers)) {
