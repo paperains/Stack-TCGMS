@@ -37,37 +37,37 @@ if ($name == $row['name']) {
         if ($sql['mcard'] == "No") { }
         else { echo '<img src="/images/cards/mc-'.$sql['name'].'.png" /> '; }
         $rewards = substr_replace($rewards,"",-2);
-        if ($sql['cake'] == 0 && $sql['ticket'] == 0 && $sql['mcard'] == "No") {
+        if ($sql['x1'] == 0 && $sql['x2'] == 0 && $sql['mcard'] == "No") {
             echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> '.$rewards.'</p></center>';
             $newSet = $rewards;
         }
-        else if ($sql['cake'] != 0 && $sql['ticket'] == 0 && $sql['mcard'] == "No") {
-            echo '<img src="/images/cake.png" /> [x'.$sql['cake'].']';
-            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> '.$rewards.', +'.$sql['cake'].' cakes</p></center>';
-            $newSet = $rewards.', +'.$sql['cake'].' cakes';
+        else if ($sql['x1'] != 0 && $sql['x2'] == 0 && $sql['mcard'] == "No") {
+            echo '<img src="/images/'.$settings->getValue('x1').'" /> [x'.$sql['x1'].']';
+            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> '.$rewards.', +'.$sql['x1'].' '.$x1.'s</p></center>';
+            $newSet = $rewards.', +'.$sql['x1'].' '.$x1.'s';
         }
-        else if ($sql['cake'] == 0 && $sql['ticket'] != 0 && $sql['mcard'] == "No") {
-            echo '<img src="/images/ticket.png" /> [x'.$sql['ticket'].']';
-            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> '.$rewards.', +'.$sql['ticket'].' tickets</p></center>';
-            $newSet = $rewards.', +'.$sql['ticket'].' tickets';
+        else if ($sql['x1'] == 0 && $sql['x2'] != 0 && $sql['mcard'] == "No") {
+            echo '<img src="/images/'.$settings->getValue('x2').'" /> [x'.$sql['x2'].']';
+            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> '.$rewards.', +'.$sql['x2'].' '.$x2.'s</p></center>';
+            $newSet = $rewards.', +'.$sql['x2'].' '.$x2.'s';
         }
-        else if ($sql['cake'] != 0 && $sql['ticket'] != 0 && $sql['mcard'] == "No") {
-            echo '<img src="/images/cake.png" /> [x'.$sql['cake'].'] <img src="/images/ticket.png" /> [x'.$sql['ticket'].']';
-            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> '.$rewards.', +'.$sql['cake'].' cakes, +'.$sql['ticket'].' tickets</p></center>';
-            $newSet = $rewards.', +'.$sql['cake'].' cakes, +'.$sql['ticket'].' tickets';
+        else if ($sql['x1'] != 0 && $sql['x2'] != 0 && $sql['mcard'] == "No") {
+            echo '<img src="/images/'.$settings->getValue('x1').'" /> [x'.$sql['x1'].'] <img src="/images/'.$settings->getValue('x2').'" /> [x'.$sql['x2'].']';
+            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> '.$rewards.', +'.$sql['x1'].' '.$x1.'s, +'.$sql['x2'].' '.$x2.'s</p></center>';
+            $newSet = $rewards.', +'.$sql['x1'].' '.$x1.'s, +'.$sql['x2'].' '.$x2.'s';
         }
-        else if ($sql['cake'] != 0 && $sql['ticket'] == 0 && $sql['mcard'] == "Yes") {
-            echo '<img src="/images/cake.png" /> [x'.$sql['cake'].']';
-            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> mc-'.$sql['name'].', '.$rewards.', +'.$sql['cake'].' cakes</p></center>';
-            $newSet = 'mc-'.$sql['name'].', '.$rewards.', +'.$sql['cake'].' cakes';
+        else if ($sql['x1'] != 0 && $sql['x2'] == 0 && $sql['mcard'] == "Yes") {
+            echo '<img src="/images/'.$settings->getValue('x1').'" /> [x'.$sql['x1'].']';
+            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> mc-'.$sql['name'].', '.$rewards.', +'.$sql['x1'].' '.$x1.'s</p></center>';
+            $newSet = 'mc-'.$sql['name'].', '.$rewards.', +'.$sql['x1'].' '.$x1.'s';
         } else {
-            echo '<img src="/images/cake.png" /> [x'.$sql['cake'].'] <img src="/images/ticket.png" /> [x'.$sql['ticket'].']';
-            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> '.$rewards.', +'.$sql['gold'].' golds, +'.$sql['vial'].' vials</p></center>';
-            $newSet = $rewards.', +'.$sql['cake'].' cakes, +'.$sql['ticket'].' tickets';
+            echo '<img src="/images/'.$settings->getValue('x1').'" /> [x'.$sql['x1'].'] <img src="/images/'.$settings->getValue('x2').'" /> [x'.$sql['x2'].']';
+            echo '<p><strong>'.$sql['type']; if ($sql['subtitle']!='') { echo ' '.$sql['subtitle']; } echo ':</strong> '.$rewards.', +'.$sql['x1'].' '.$x1.'s, +'.$sql['x2'].' '.$x2.'s</p></center>';
+            $newSet = $rewards.', +'.$sql['x1'].' '.$x1.'s, +'.$sql['x2'].' '.$x2.'s';
         }
         $today = date("Y-m-d", strtotime("now"));
-        $database->query("INSERT INTO `logs_".$sql['name']."` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('".$sql['name']."','Rewards','".$sql['type']."','".$sql['subtitle']."','$newSet','$today')");
-        $database->query("UPDATE `user_items` SET `cake`=cake+'".$sql['cake']."', `ticket`=ticket+'".$sql['ticket']."', `cards`=cards+'$cards' WHERE `email`='$login'");
+        $database->query("INSERT INTO `user_logs` (`name`,`type`,`title`,`subtitle`,`rewards`,`timestamp`) VALUES ('".$sql['name']."','Rewards','".$sql['type']."','".$sql['subtitle']."','$newSet','$today')");
+        $database->query("UPDATE `user_items` SET `x1`=x1+'".$sql['x1']."', `x2`=x2+'".$sql['x2']."', `cards`=cards+'$cards' WHERE `email`='$login'");
         $database->query("DELETE FROM `user_rewards` WHERE `id`='".$sql['id']."'");
     }
 }
