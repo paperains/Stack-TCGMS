@@ -421,9 +421,9 @@ else if ($do == "edit-items") {
         <tr>
 	    <td class="headLine">Level Badge:</td><td class="tableBody"><selec name="lvlb" style="width:95%;">
 	    <option value="">Select a Level Badge</option>';
-	    $count = $database->num_rows("SELECT * FROM `tcg_badges`");
+	    $count = $database->num_rows("SELECT * FROM `tcg_levels_badge`");
 	    for ($i=1; $i<=$count; $i++) {
-		$lb = $database->get_assoc("SELECT * FROM `tcg_badges` WHERE `id`='$i');
+		$lb = $database->get_assoc("SELECT * FROM `tcg_levels_badge` WHERE `id`='$i'");
 		echo '<option value="'.$lb['set'].'">'.$lb['donator'].' ('.$lb['set'].')</option>';
 	    }
 	    echo '</select></td>
