@@ -1,6 +1,7 @@
 # CORE
 An online TCG management system that pretty much hosts everything you'll need for your basic TCG.
-This has been a fun project ever since MyTCG became deprecated and left unupdated.
+This has been a fun project of mine ever since MyTCG became deprecated and left unupdated.
+For more information about the added suggested features that are being developed for CORE, you can find it on the [masterlist](https://github.com/paperains/CORE-Master/blob/main/MASTERLIST.md) file.
 
 ## Developers
 - [Aki](https://www.reijou.net) (Author)
