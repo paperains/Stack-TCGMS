@@ -344,8 +344,8 @@ else {
           if($row['memcard']=="Yes") { echo '<img src="'.$tcgcards.'mc-'.$row['name'].'.'.$tcgext.'" /> '; }
           else { echo '<img src="'.$tcgcards.'mc-filler.'.$tcgext.'" /> '; }
           if ($row['level'] < 10) {
-            $num = '0'.$row['level'];
-            echo '<img src="/images/badges/'.$item['level_badge'].'-0'.$row['level'].'.png" />';
+            $numlvl = '0'.$row['level'];
+            echo '<img src="/images/badges/'.$item['level_badge'].'-'.$numlvl.'.png" />';
           } else {
             echo '<img src="/images/badges/'.$item['level_badge'].'-'.$row['level'].'.png" />';
           }
