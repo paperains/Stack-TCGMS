@@ -419,8 +419,12 @@ else if ($do == "edit-items") {
             <td class="headLine">Event Cards:</td><td class="tableBody"><textarea name="ecard" rows="5" style="width: 95%;">'.$row['ecard'].'</textarea></td>
         </tr>
         <tr>
-	    <td class="headLine">Level Badge:</td><td class="tableBody"><selec name="lvlb" style="width:95%;">
-	    <option value="">Select a Level Badge</option>';
+	    <td class="headLine">Level Badge:</td><td class="tableBody"><select name="lvlb" style="width:95%;">';
+	    if ($row['level_badge'] == "") {
+	        echo '<option value="">Select a Level Badge</option>';
+	    } else {
+		echo '<option value="'.$row['level_badge'].'">'.$row['level_badge'].'</option>';
+	    }
 	    $count = $database->num_rows("SELECT * FROM `tcg_levels_badge`");
 	    for ($i=1; $i<=$count; $i++) {
 		$lb = $database->get_assoc("SELECT * FROM `tcg_levels_badge` WHERE `id`='$i'");
