@@ -16,8 +16,8 @@ This will be the complete list of the developers plans and suggestions as they m
 - [x] Allow changing social media links via the admin panel (discord, twitter, etc)
 - [ ] Allow navigation bar to keep current category expanded by default - even with child pages of the ones linked. (?)
 - [x] Add link back to Dashboard (index.php) - already linked via the `Dashboard` menu, can be added to `CoreAdmin` logo as well.
-- [ ] Allow an admin to schedule a blog post.
-  - [ ] Add a method of actually scheduling when the post will be released.
+- [x] Allow an admin to schedule a blog post.
+  - [x] Add a method of actually scheduling when the post will be released.
 - [x] Allow an admin to draft a blog post.
 - [x] Add an absolute path for general use via the settings database and admin panel.
 - [x] Allow an admin to create/edit/delete a page content that can read PHP codes.
