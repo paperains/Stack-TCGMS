@@ -1,10 +1,12 @@
-# CORE
-An online TCG management system that pretty much hosts everything you'll need for your basic TCG.
+# Stack TCGMS
+Stack TCGMS is an online TCG management system that pretty much hosts everything you'll need for your basic TCG.
 This has been a fun project of mine ever since MyTCG became deprecated and left unupdated.
-For more information about the added suggested features that are being developed for CORE, you can find it on the [masterlist](https://github.com/paperains/CORE-Master/blob/main/MASTERLIST.md) file.
+For more information about the added suggested features that are being developed for Stack, you can find it on the [masterlist](https://github.com/paperains/Stack-TCGMS/blob/main/MASTERLIST.md) file.
 
-## Developers
-- [Aki](https://www.reijou.net) (Author)
+## Developed by
+- [Aki](https://www.reijou.net)
+
+### Contributors
 - [Rheanna](http://www.rheanimate.com) (Contributor)
 - [Taty](http://mobe.bombilate.net/) (Contributor)
 
