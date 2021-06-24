@@ -7,7 +7,7 @@ For more information about the added suggested features that are being developed
 - [Aki](https://www.reijou.net)
 
 ### Contributors
-- [Rheanna](http://www.rheanimate.com) (Contributor)
+- [Rheanna](http://www.rheanna.net) (Contributor)
 - [Taty](http://mobe.bombilate.net/) (Contributor)
 
 # Credits
