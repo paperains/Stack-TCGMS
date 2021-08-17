@@ -5,9 +5,10 @@ For more information about the added suggested features that are being developed
 
 ## Developed by
 - [Aki](https://www.reijou.net)
+- [Rheanna](http://www.rheanna.net) (Contributor)
 
 ### Contributors
-- [Rheanna](http://www.rheanna.net) (Contributor)
+- [Caitlin](http://caitlin.saythe.name/) (Contributor)
 - [Taty](http://mobe.bombilate.net/) (Contributor)
 
 # Credits
