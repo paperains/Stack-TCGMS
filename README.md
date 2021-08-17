@@ -5,11 +5,11 @@ For more information about the added suggested features that are being developed
 
 ## Developed by
 - [Aki](https://www.reijou.net)
-- [Rheanna](http://www.rheanna.net) (Contributor)
+- [Rheanna](http://www.rheanna.net) (Co-developer)
 
 ### Contributors
-- [Caitlin](http://caitlin.saythe.name/) (Contributor)
-- [Taty](http://mobe.bombilate.net/) (Contributor)
+- [Caitlin](http://caitlin.saythe.name/)
+- [Taty](http://mobe.bombilate.net/)
 
 # Credits
 - Calico (for the online TCG concept)
